@@ -1,0 +1,5 @@
+.column {
+  background: green;
+  flex-grow: 1;
+  margin: 50px;
+}
