@@ -22,7 +22,7 @@ export enum TargetType {
 export interface Action {
   type: ActionType;
   targetType: TargetType;
-  payload: any;
+  payload?: any;
 }
 
 export interface BoardState {
