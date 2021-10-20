@@ -16,14 +16,13 @@ type ColumnProps = {
 }
 
 function Column({col, dispatch, children}: ColumnProps) {
-  const { UpdateColumnTitle, AddCard } = useMemo(() => createColumnActions(dispatch), [dispatch]);
+  const { UpdateColumnTitle, AddCard, RemoveColumn } = useMemo(() => createColumnActions(dispatch), [dispatch]);
   const updateTitle = (text: string) => {
     UpdateColumnTitle(col.id, text);
   }
 
-  const addCard = () => {
-    AddCard(col.id);
-  }
+  const addCard = () => { AddCard(col.id); };
+  const removeColumn = () => { RemoveColumn(col.id) };
 
   return (
     <div className="column">
@@ -32,6 +31,7 @@ function Column({col, dispatch, children}: ColumnProps) {
         children
       }
       <button onClick={addCard} >+</button>
+      <button onClick={removeColumn} >Remove Column</button>
     </div>
   );
 }

@@ -6,8 +6,10 @@ import IDed from './IDed';
 export enum ActionType {
   UpdateBoardTitle = "UpdateBoardTitle",
   AddColumn = "AddColumn",
+  RemoveColumn = "RemoveColumn",
   UpdateColumnTitle = "UpdateColumnTitle",
   AddCard = "AddCard",
+  RemoveCard = "RemoveCard",
   UpdateCardText = "UpdateCardText",
   AddVote = "AddVote",
   RemoveVote = "RemoveVote",
@@ -73,6 +75,8 @@ function columnsReducer(cols: ColumnType[], {type, payload}: Action): ColumnType
         ...cols,
         payload,
       ];
+    case ActionType.RemoveColumn:
+      return cols.filter(({id}: ColumnType) => id !== payload);
     case ActionType.UpdateColumnTitle:
       return actOn(payload.id, cols, (col: ColumnType) => ({...col, title: payload.title}));
   }
@@ -87,6 +91,8 @@ function cardsReducer(cards: CardType[], {type, payload}: Action): CardType[] {
         ...cards,
         payload,
       ];
+    case ActionType.RemoveCard:
+      return cards.filter(({id}: CardType) => id !== payload);
     case ActionType.UpdateCardText:
       return actOn(payload.id, cards, (card: CardType) => ({...card, text: payload.text}));
     case ActionType.AddVote:

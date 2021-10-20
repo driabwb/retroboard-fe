@@ -14,13 +14,14 @@ interface CardProps {
 }
 
 function Card({card, dispatch}: CardProps) {
-  const { UpdateCardText, AddVote, RemoveVote } = useMemo(() => createCardActions(dispatch), [dispatch]);
+  const { UpdateCardText, AddVote, RemoveVote, RemoveCard } = useMemo(() => createCardActions(dispatch), [dispatch]);
   const updateText = (text: string) => {
     UpdateCardText(card.id, text);
   };
 
   const addVote = () => { AddVote(card.id) };
   const removeVote = () => { RemoveVote(card.id) };
+  const removeCard = () => { RemoveCard(card.id) };
 
   return (
     <div className="card">
@@ -29,6 +30,9 @@ function Card({card, dispatch}: CardProps) {
         <button onClick={removeVote} >-</button>
         Votes: {card.votes}
         <button onClick={addVote} >+</button>
+      </p>
+      <p>
+        <button onClick={removeCard}>Remove Card</button>
       </p>
     </div>
   );
