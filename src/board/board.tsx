@@ -61,15 +61,22 @@ function Board(props: BoardProps) {
   const [boardState, dispatch] = useReducer(BoardStateReducer, initData);
   const { board, columns, cards } = boardState;
 
-  const { UpdateBoardTitle } = useMemo(() => createBoardActions(dispatch), [dispatch]);
+  const { UpdateBoardTitle, AddColumn } = useMemo(() => createBoardActions(dispatch), [dispatch]);
 
   const updateTitle = (text: string) => {
     UpdateBoardTitle(text);
   };
 
+  const addColumn = () => {
+    AddColumn()
+  }
+
   return (
     <div className="board">
       <h1 className="board-title"><EditableTextControl onSave={updateTitle} text={board.title} /></h1>
+      <span className="addColumn">
+        <button onClick={addColumn}>Add Column</button>
+      </span>
       <span className="columns">
         {
           columns.map((col: ColumnType) => {

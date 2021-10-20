@@ -1,5 +1,7 @@
 import { Dispatch } from 'react';
 
+import { v4 as newUUID } from 'uuid';
+
 import { Action, ActionType, TargetType } from './reducer';
 // Create Action methods for dispatching Actions
 
@@ -54,9 +56,9 @@ export function createColumnActions(dispatch: Dispatch<Action>): ColumnActions {
         type: ActionType.AddCard,
         targetType: TargetType.Card,
         payload: { 
-          id: 'foo', 
+          id: newUUID(), 
           colID,  
-          text: '',
+          text: newUUID(),
           votes: 0,
         },
       });
@@ -86,7 +88,7 @@ export function createBoardActions(dispatch: Dispatch<Action>): BoardActions {
         type: ActionType.AddColumn,
         targetType: TargetType.Column,
         payload: {
-          id: 'bar',
+          id: newUUID(),
         },
       });
     },

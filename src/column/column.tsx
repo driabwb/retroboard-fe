@@ -1,6 +1,10 @@
-import React, { Dispatch, ReactNode } from 'react';
+import React, { Dispatch, ReactNode, useMemo } from 'react';
+
+import { createColumnActions } from '../datatypes/action';
 
 import './column.css';
+
+import EditableTextControl from '../editableTextControl/editableTextControl';
 
 import ColumnType from '../datatypes/column';
 import { Action } from '../datatypes/reducer';
@@ -11,14 +15,23 @@ type ColumnProps = {
   children: ReactNode;
 }
 
-function Column({col, children}: ColumnProps) {
+function Column({col, dispatch, children}: ColumnProps) {
+  const { UpdateColumnTitle, AddCard } = useMemo(() => createColumnActions(dispatch), [dispatch]);
+  const updateTitle = (text: string) => {
+    UpdateColumnTitle(col.id, text);
+  }
+
+  const addCard = () => {
+    AddCard(col.id);
+  }
+
   return (
     <div className="column">
-      <h2 className="column-title">{col.title}</h2>
+      <h2 className="column-title"><EditableTextControl onSave={updateTitle} text={col.title} /></h2>
       {
         children
       }
-      <button>+</button>
+      <button onClick={addCard} >+</button>
     </div>
   );
 }

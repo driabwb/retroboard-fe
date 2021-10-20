@@ -14,15 +14,22 @@ interface CardProps {
 }
 
 function Card({card, dispatch}: CardProps) {
-  const { UpdateCardText } = useMemo(() => createCardActions(dispatch), [dispatch]);
+  const { UpdateCardText, AddVote, RemoveVote } = useMemo(() => createCardActions(dispatch), [dispatch]);
   const updateText = (text: string) => {
     UpdateCardText(card.id, text);
   };
 
+  const addVote = () => { AddVote(card.id) };
+  const removeVote = () => { RemoveVote(card.id) };
+
   return (
     <div className="card">
       <EditableTextControl onSave={updateText} text={card.text} />
-      <p>Votes: {card.votes}</p>
+      <p>
+        <button onClick={removeVote} >-</button>
+        Votes: {card.votes}
+        <button onClick={addVote} >+</button>
+      </p>
     </div>
   );
 }
