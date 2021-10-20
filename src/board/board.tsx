@@ -1,13 +1,15 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useMemo } from 'react';
 
 import './board.css';
 
 import Column from '../column/column';
 import Card from '../card/card';
+import EditableTextControl from '../editableTextControl/editableTextControl';
 
 import ColumnType from '../datatypes/column';
 import CardType from '../datatypes/card';
 import { BoardState, BoardStateReducer } from '../datatypes/reducer';
+import { createBoardActions } from '../datatypes/action';
 
 
 type BoardProps = {
@@ -59,9 +61,15 @@ function Board(props: BoardProps) {
   const [boardState, dispatch] = useReducer(BoardStateReducer, initData);
   const { board, columns, cards } = boardState;
 
+  const { UpdateBoardTitle } = useMemo(() => createBoardActions(dispatch), [dispatch]);
+
+  const updateTitle = (text: string) => {
+    UpdateBoardTitle(text);
+  };
+
   return (
     <div className="board">
-      <h1 className="board-title">{board.title}</h1>
+      <h1 className="board-title"><EditableTextControl onSave={updateTitle} text={board.title} /></h1>
       <span className="columns">
         {
           columns.map((col: ColumnType) => {
