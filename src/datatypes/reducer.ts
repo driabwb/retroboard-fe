@@ -73,6 +73,8 @@ function cardsReducer(cards: CardType[], {type, payload}: Action): CardType[] {
       ];
     case ActionType.RemoveCard:
       return cards.filter(({id}: CardType) => id !== payload);
+    case ActionType.RemoveColumn:
+      return cards.filter(({colID}: CardType) => colID !== payload);
     case ActionType.UpdateCardText:
       return actOn(payload.id, cards, (card: CardType) => ({...card, text: payload.text}));
     case ActionType.AddVote:
