@@ -2,7 +2,7 @@ import { Dispatch } from 'react';
 
 import { v4 as newUUID } from 'uuid';
 
-import { Action, ActionType, TargetType } from './reducer';
+import { Action, ActionType } from './reducer';
 // Create Action methods for dispatching Actions
 
 export interface CardActions {
@@ -17,28 +17,24 @@ export function createCardActions(dispatch: Dispatch<Action>): CardActions {
     AddVote: (id: string) => {
       dispatch({
         type: ActionType.AddVote,
-        targetType: TargetType.Card,
         payload: { id }
       });
     },
     RemoveVote: (id: string) => {
       dispatch({
         type: ActionType.RemoveVote,
-        targetType: TargetType.Card,
         payload: { id }
       });
     },
     UpdateCardText: (id: string, text:string) => {
       dispatch({
         type: ActionType.UpdateCardText,
-        targetType: TargetType.Card,
         payload: { id, text }
       });
     },
     RemoveCard: (id: string) => {
       dispatch({
         type: ActionType.RemoveCard,
-        targetType: TargetType.Card,
         payload: id,
       });
     },
@@ -56,14 +52,12 @@ export function createColumnActions(dispatch: Dispatch<Action>): ColumnActions {
     UpdateColumnTitle: (id: string, title: string) => {
       dispatch({
         type: ActionType.UpdateColumnTitle,
-        targetType: TargetType.Column,
         payload: { id, title },
       });
     },
     AddCard: (colID: string) => {
       dispatch({
         type: ActionType.AddCard,
-        targetType: TargetType.Card,
         payload: { 
           id: newUUID(), 
           colID,  
@@ -75,7 +69,6 @@ export function createColumnActions(dispatch: Dispatch<Action>): ColumnActions {
     RemoveColumn: (colID: string) => {
       dispatch({
         type: ActionType.RemoveColumn,
-        targetType: TargetType.Column,
         payload: colID,
       });
     },
@@ -95,14 +88,12 @@ export function createBoardActions(dispatch: Dispatch<Action>): BoardActions {
     UpdateBoardTitle: (title: string) => {
       dispatch({
         type: ActionType.UpdateBoardTitle,
-        targetType: TargetType.Board,
         payload: title,
       });
     },
     AddColumn: () => {
       dispatch({
         type: ActionType.AddColumn,
-        targetType: TargetType.Column,
         payload: {
           id: newUUID(),
         },

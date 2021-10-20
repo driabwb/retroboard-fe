@@ -15,15 +15,8 @@ export enum ActionType {
   RemoveVote = "RemoveVote",
 };
 
-export enum TargetType {
-  Board,
-  Column,
-  Card,
-};
-
 export interface Action {
   type: ActionType;
-  targetType: TargetType;
   payload?: any;
 }
 
@@ -34,25 +27,12 @@ export interface BoardState {
 }
 
 export function BoardStateReducer(state: BoardState, action: Action): BoardState {
-  switch (action.targetType) {
-    case TargetType.Board:
-      return {
-        ...state,
-        board: boardReducer(state.board, action),
-      };
-    case TargetType.Column:
-      return {
-        ...state,
-        columns: columnsReducer(state.columns, action),
-      };
-    case TargetType.Card:
-    return {
-      ...state,
-      cards: cardsReducer(state.cards, action),
-    }
+  return {
+    ...state,
+    board: boardReducer(state.board, action),
+    columns: columnsReducer(state.columns, action),
+    cards: cardsReducer(state.cards, action),
   }
-
-  return state;
 }
 
 
